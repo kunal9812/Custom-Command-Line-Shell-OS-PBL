@@ -1,79 +1,28 @@
-#include<iostream>
-#include<string>
-#include<vector>
-#include<map>
-#include<limits>
+#include <iostream>
+#include <string>
+#include "parser.h"
+#include "builtins.h"
+#include "executor.h"
 using namespace std;
 
-static map <string , string> commands = 
-{
-    {"help", "./commands/help"}
-};
-
-int main(){
+int main() {
     string input;
 
-    // for(auto& x : commands){
-    //     cout << x.first<< endl;
-    // }
-
-
-    while(true){
+    while (true) {
         cout << "Custom_shell> ";
-        getline(cin, input);
+        flush(cout);
 
+        if (!getline(cin, input)) break; 
+        if (input.empty()) continue;
 
-        auto command = commands.find(input);
+        vector<string> args = parse(input);
+        if (args.empty()) continue;
 
-        if(command != commands.end()){
-            system(command->second.c_str());
-        }
-        else if("clear" == input || "clr" == input){
-            cout<<"\033c";
-        }
-        else if(0 == input.length()){
-
-        }
-        else if("exit" == input){
-            exit(0);
-        }
-        else if("calc" == input){
-            char op;
-            float a,b;
-
-            cout<<"----CALCULATOR----\n";
-            cout<<"Enter the opertor :";
-            cin>>op;
-            cout<<"Enter first number :";
-            cin>>a;
-            cout<<"Enter second number :";
-            cin>>b;
-
-            switch(op)
-            {
-                case '+':
-                    cout << "Result is :" << a+b<<".\n";
-                    break;
-                case '-':
-                    cout << "Result is :" << a-b<<".\n";
-                    break;
-                case '*':
-                    cout << "Result is :" << a*b<<".\n";
-                    break;
-                case '/':
-                    cout << "Result is :" << a/b<<".\n";
-                    break;
-                default:
-                    cout << "Wrong Operator!\n";
-                    break;
-            }
-
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        else{
-            cout<<"Wrong Command!\n";
-        }
-
+        if (is_builtin(args[0]))
+            run_builtin(args);
+        else
+            execute(args);
     }
+
     return 0;
 }
