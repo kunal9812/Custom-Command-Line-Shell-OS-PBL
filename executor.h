@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <string>
-using namespace std;
+#include "parser.h"
 
-int execute(const vector<string>& args);
+int execute(const Command& cmd);

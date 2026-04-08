@@ -1,6 +1,5 @@
 #pragma once
-#include <vector>
-#include <string>
-using namespace std;
+#include "parser.h"
+
 bool is_builtin(const string& cmd);
-int run_builtin(const vector<string>& args);
+int run_builtin(const Command& cmd);

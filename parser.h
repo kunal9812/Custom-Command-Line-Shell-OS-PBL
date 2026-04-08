@@ -2,4 +2,12 @@
 #include <vector>
 #include <string>
 using namespace std;
-vector<string> parse(const string& input);
+
+struct Command {
+    vector<string> args;      
+    string input_file;        
+    string output_file;       
+    bool append = false;      
+};
+
+Command parse(const string& input);

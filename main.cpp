@@ -12,17 +12,16 @@ int main() {
         cout << "Custom_shell> ";
         flush(cout);
 
-        if (!getline(cin, input)) break; 
+        if (!getline(cin, input)) break;
         if (input.empty()) continue;
 
-        vector<string> args = parse(input);
-        if (args.empty()) continue;
+        Command cmd = parse(input);
+        if (cmd.args.empty()) continue;
 
-        if (is_builtin(args[0]))
-            run_builtin(args);
+        if (is_builtin(cmd.args[0]))
+            run_builtin(cmd);
         else
-            execute(args);
+            execute(cmd);
     }
-
     return 0;
 }
