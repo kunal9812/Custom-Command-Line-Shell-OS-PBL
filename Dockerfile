@@ -10,8 +10,10 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     vim \
     nano \
-    python3 \
-    python3-pip \
+    g++ \
+    cmake \
+    make \
+    libreadline-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
