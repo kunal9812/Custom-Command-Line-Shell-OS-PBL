@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include <signal.h>      
+#include <signal.h> 
+#include <unistd.h>     
 #include "parser.h"
 #include "builtins.h"
 #include "executor.h"
@@ -12,7 +13,9 @@ int main() {
     signal(SIGQUIT, SIG_IGN);
 
     while (true) {
-        cout << "Custom_Shell₹ ";
+        char cwd[1024];
+        getcwd(cwd, sizeof(cwd));
+        cout << "Custom_Shell₹  " << cwd << "> ";
         flush(cout);
 
         if (!getline(cin, input)) break;
